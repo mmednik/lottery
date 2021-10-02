@@ -76,4 +76,8 @@ contract QuiniCoin {
             emit purchasedTicket(random, msg.sender);
         }
     }
+
+    function myTickets() public view returns(uint[] memory) {
+        return peopleTickets[msg.sender];
+    }
 }

@@ -24,8 +24,22 @@ contract QuiniCoin {
         token.increaseTotalSupply(_tokenQty);
     }
 
-     modifier Lottery(address _address) {
+    modifier Lottery(address _address) {
         require(_address==owner, "You don't have the permissions to execute this function");
         _;
+    }
+
+    function buyToken(uint _tokenQty) public payable {
+        uint cost = tokenPrice(_tokenQty);
+        require(msg.value>=cost, "You do not have the amount of ethers necessary for the purchase.");
+        uint returnValue = msg.value-cost;
+        payable(msg.sender).transfer(returnValue);
+        uint balance = balanceOf();
+        require(_tokenQty<=balance, "The number of tokens requested exceeds the number of tokens for sale.");
+        token.transfer(msg.sender, _tokenQty);
+    }
+
+    function balanceOf() public view returns(uint) {
+        return token.balanceOf(address(this));
     }
 }

@@ -6,7 +6,7 @@ Very simple implementation of a Smart Contract for lottery system.
 ## Features
 
 - ERC20 Smart Contract for QuiniCoin (QNI) token (in a warm tribute to the Argentinean gambling game called Quini6)
-- Token & lottery management functions (get price, generate new tokens, buy tokens, get balance, get jackpot)
+- Token management functions (get price, generate new tokens, buy tokens, get balance, get jackpot, get my tokens)
 
 
 ## Tech

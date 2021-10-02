@@ -14,4 +14,9 @@ contract QuiniCoin {
         owner = payable(msg.sender);
         _contract = address(this);
     }
+
+    // Token management
+    function tokenPrice(uint _tokenQty) internal pure returns(uint) {
+        return _tokenQty*(1 ether);
+    }
 }

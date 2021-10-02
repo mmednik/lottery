@@ -19,4 +19,13 @@ contract QuiniCoin {
     function tokenPrice(uint _tokenQty) internal pure returns(uint) {
         return _tokenQty*(1 ether);
     }
+
+    function generateTokens(uint _tokenQty) public Lottery(msg.sender) {
+        token.increaseTotalSupply(_tokenQty);
+    }
+
+     modifier Lottery(address _address) {
+        require(_address==owner, "You don't have the permissions to execute this function");
+        _;
+    }
 }

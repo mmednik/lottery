@@ -65,7 +65,7 @@ contract QuiniCoin {
 
     function buyTicket(uint _tickets) public {
         uint totalPrice = _tickets*ticketPrice;
-        require(totalPrice<=myTokens(), "You need to buy more tokens");
+        require(totalPrice<=myTokens(), "You need to buy more tokens.");
         token.transferToLottery(msg.sender, owner, totalPrice);
         for(uint i=0; i<_tickets; i++) {
             uint random = uint(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce)))%10000;
@@ -79,5 +79,15 @@ contract QuiniCoin {
 
     function myTickets() public view returns(uint[] memory) {
         return peopleTickets[msg.sender];
+    }
+
+    function generateWinningTicket() public Lottery(msg.sender) {
+        uint ticketsQty = purchasedTickets.length;
+        require(ticketsQty>0, "No ticket has been purchased.");
+        uint randomIndex = uint(uint(keccak256(abi.encodePacked(block.timestamp)))%ticketsQty);
+        uint winning = purchasedTickets[randomIndex];
+        emit winningTicket(winning);
+        address winnerAddress = peopleTickets[winning];
+        token.transferToLottery(msg.sender, winnerAddress, getJackpot());
     }
 }

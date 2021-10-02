@@ -42,4 +42,8 @@ contract QuiniCoin {
     function balanceOf() public view returns(uint) {
         return token.balanceOf(address(this));
     }
+
+    function jackpot() public view returns(uint) {
+        return token.balanceOf(owner);
+    }
 }

@@ -9,7 +9,7 @@ contract QuiniCoin {
     address public _contract;
     uint public createdTokens = 10000;
 
-    event buyedTokens(uint, address);
+    event purchasedTokens(uint, address);
 
     constructor() {
         token = new ERC20(createdTokens);
@@ -39,7 +39,7 @@ contract QuiniCoin {
         uint balance = balanceOf();
         require(_tokenQty<=balance, "The number of tokens requested exceeds the number of tokens for sale.");
         token.transfer(msg.sender, _tokenQty);
-        emit buyedTokens(_tokenQty, msg.sender);
+        emit purchasedTokens(_tokenQty, msg.sender);
     }
 
     function balanceOf() public view returns(uint) {
@@ -53,4 +53,13 @@ contract QuiniCoin {
     function myTokens() public view returns(uint) {
         return token.balanceOf(msg.sender);
     }
+
+    // Lottery management
+    uint public ticketPrice = 5;
+    mapping(address=>uint[]) peopleTickets;
+    mapping (uint=>address) winner;
+    uint randNounce = 0;
+    uint[] purchasedTickets;
+    event purchasedTicket(uint);
+    event winningTicket(uint);
 }

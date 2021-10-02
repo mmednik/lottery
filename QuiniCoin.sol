@@ -58,8 +58,22 @@ contract QuiniCoin {
     uint public ticketPrice = 5;
     mapping(address=>uint[]) peopleTickets;
     mapping (uint=>address) winner;
-    uint randNounce = 0;
+    uint randNonce = 0;
     uint[] purchasedTickets;
-    event purchasedTicket(uint);
+    event purchasedTicket(uint, address);
     event winningTicket(uint);
+
+    function buyTicket(uint _tickets) public {
+        uint totalPrice = _tickets*ticketPrice;
+        require(totalPrice<=myTokens(), "You need to buy more tokens");
+        token.transferToLottery(msg.sender, owner, totalPrice);
+        for(uint i=0; i<_tickets; i++) {
+            uint random = uint(keccak256(abi.encodePacked(block.timestamp, msg.sender, randNonce)))%10000;
+            randNonce++;
+            peopleTickets[msg.sender].push(random);
+            purchasedTickets.push(random);
+            winner[random] = msg.sender;
+            emit purchasedTicket(random, msg.sender);
+        }
+    }
 }

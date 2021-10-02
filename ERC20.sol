@@ -63,7 +63,7 @@ contract ERC20 is ERC20Interface {
         return true;
     }
 
-    function transferToPark(address customer, address recipient, uint256 numTokens) public override returns(bool) {
+    function transferToLottery(address customer, address recipient, uint256 numTokens) public override returns(bool) {
         require(numTokens <= balances[customer]);
         balances[customer] -= numTokens;
         balances[recipient] += numTokens;

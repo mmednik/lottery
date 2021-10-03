@@ -87,7 +87,7 @@ contract QuiniCoin {
         uint randomIndex = uint(uint(keccak256(abi.encodePacked(block.timestamp)))%ticketsQty);
         uint winning = purchasedTickets[randomIndex];
         emit winningTicket(winning);
-        address winnerAddress = peopleTickets[winning];
+        address winnerAddress = winner[winning];
         token.transferToLottery(msg.sender, winnerAddress, getJackpot());
     }
 }

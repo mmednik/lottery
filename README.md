@@ -18,7 +18,7 @@ Very simple implementation of a Smart Contract for lottery system.
 
 ## Test deploy
 
-Deployed and verified at Rinkeby Testnet Network: ...
+Deployed and verified at Rinkeby Testnet Network: [https://rinkeby.etherscan.io/address/0x51b2027d669BDeb44ee5F2830ab9986E5BB2B13A](https://rinkeby.etherscan.io/address/0x51b2027d669BDeb44ee5F2830ab9986E5BB2B13A)
 
 
 ## License

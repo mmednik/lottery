@@ -11,7 +11,7 @@ interface ERC20Interface {
     
     function transfer(address recipient, uint256 amount) external returns(bool);
 
-    function transferToPark(address customer, address recipient, uint256 amount) external returns(bool);
+    function transferToLottery(address customer, address recipient, uint256 amount) external returns(bool);
     
     function approve(address spender, uint256 amount) external returns(bool);
     

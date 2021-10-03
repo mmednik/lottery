@@ -62,6 +62,7 @@ contract QuiniCoin {
     uint[] purchasedTickets;
     event purchasedTicket(uint, address);
     event winningTicket(uint);
+    event swapedTokens(uint, address);
 
     function buyTicket(uint _tickets) public {
         uint totalPrice = _tickets*ticketPrice;
@@ -89,5 +90,13 @@ contract QuiniCoin {
         emit winningTicket(winning);
         address winnerAddress = winner[winning];
         token.transferToLottery(msg.sender, winnerAddress, getJackpot());
+    }
+
+    function swapTokens(uint _tokens) public payable {
+        require(_tokens>0, "The number of tokens must be greater than 0.");
+        require(_tokens<=myTokens(), "You do not have the amount of tokens you want to exchange.");
+        token.transferToLottery(msg.sender, address(this), _tokens);
+        payable(msg.sender).transfer(tokenPrice(_tokens));
+        emit swapedTokens(_tokens, msg.sender);
     }
 }
